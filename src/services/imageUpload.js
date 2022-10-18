@@ -1,9 +1,21 @@
-const imageUpload = async (image) => {
-  const response = {
-    url: 'example',
-    id: 'idExample'
+import cloudinary from '../config/cloudinary.js';
+
+const imageUpload = async (image, folder) => {
+  const { tempFilePath } = image;
+
+  const options = {
+    folder,
+    discard_original_filename: true
   };
-  return response;
+
+  try {
+    const result = await cloudinary.uploader.upload(tempFilePath, options);
+    // console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export { imageUpload };
