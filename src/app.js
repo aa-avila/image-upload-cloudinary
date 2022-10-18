@@ -37,6 +37,7 @@ app.use((error, req, res, next) => {
     }
   });
   console.log('****************************************');
+  console.log(new Date());
   console.log(error);
   console.log('****************************************');
 });
