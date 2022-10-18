@@ -1,5 +1,6 @@
 import cloudinary from '../config/cloudinary.js';
 import fs from 'fs/promises';
+import { logger } from '../utils/logger.js';
 
 const imageUpload = async (image, folder) => {
   const { tempFilePath } = image;
@@ -9,7 +10,10 @@ const imageUpload = async (image, folder) => {
   try {
     const result = await cloudinary.uploader.upload(tempFilePath, options);
 
-    await fs.unlink(tempFilePath).catch((error) => console.log(error));
+    await fs
+      .unlink(tempFilePath)
+      .then(logger('Temp file deleted after upload success'))
+      .catch((error) => console.log(error));
 
     return {
       assetId: result.asset_id,
@@ -20,7 +24,11 @@ const imageUpload = async (image, folder) => {
       height: result.height
     };
   } catch (error) {
-    console.log(error);
+    await fs
+      .unlink(tempFilePath)
+      .then(logger('Temp file deleted after upload error'))
+      .catch((error) => console.log(error));
+
     throw error;
   }
 };
