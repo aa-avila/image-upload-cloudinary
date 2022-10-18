@@ -4,9 +4,7 @@ import fs from 'fs/promises';
 const imageUpload = async (image, folder) => {
   const { tempFilePath } = image;
 
-  const options = {
-    folder
-  };
+  const options = { folder };
 
   try {
     const result = await cloudinary.uploader.upload(tempFilePath, options);
@@ -22,7 +20,7 @@ const imageUpload = async (image, folder) => {
       height: result.height
     };
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   }
 };

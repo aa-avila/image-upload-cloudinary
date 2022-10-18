@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+import { customError } from './utils/customError.js';
 
 import indexRoutes from './routes/index.js';
 import imagesRoutes from './routes/images.js';
@@ -23,8 +24,7 @@ app.use('/images', imagesRoutes);
 // ERROR HANDLER
 // Error 404
 app.use((req, res, next) => {
-  const error = new Error('The requested resource does not exist.');
-  error.status = 404;
+  const error = customError('The requested resource does not exist', 404);
   next(error);
 });
 

@@ -1,21 +1,18 @@
 import cloudinary from '../config/cloudinary.js';
+import { customError } from '../utils/customError.js';
 
 const imageRemove = async (publicId) => {
   const response = await cloudinary.uploader.destroy(publicId);
 
   if (response.result === 'not found') {
-    const error = new Error(`Image not found: ${publicId}`);
-    error.status = 404;
-    throw error;
+    throw customError(`Image not found: ${publicId}`, 404);
   }
 
   if (response.result === 'ok') {
     return true;
   }
 
-  const error = new Error(`Unexpected error deleting image: ${publicId}`);
-  error.status = 500;
-  throw error;
+  throw customError(`Unexpected error deleting image: ${publicId}`, 500);
 };
 
 export { imageRemove };
