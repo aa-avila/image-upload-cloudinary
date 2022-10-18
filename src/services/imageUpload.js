@@ -5,8 +5,7 @@ const imageUpload = async (image, folder) => {
   const { tempFilePath } = image;
 
   const options = {
-    folder,
-    discard_original_filename: true
+    folder
   };
 
   try {

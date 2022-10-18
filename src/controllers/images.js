@@ -16,7 +16,7 @@ const upload = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const response = await imageRemove('123asd');
+    const response = await imageRemove(req.params.publicId);
     res.status(200).json({ data: response });
   } catch (error) {
     next(error);
