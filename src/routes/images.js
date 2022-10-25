@@ -1,5 +1,5 @@
 import fileUpload from 'express-fileupload';
-import { upload, remove } from '../controllers/images.js';
+import { upload, listImages, remove } from '../controllers/images.js';
 import { isAuth, isAdmin } from '../auth/auth.js';
 import { Router } from 'express';
 const router = Router();
@@ -14,6 +14,8 @@ router.post(
   }),
   upload
 );
+
+router.get('/', listImages);
 
 /**
  * NOTA:
