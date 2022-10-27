@@ -5,6 +5,7 @@ dotenv.config();
 const cloudName = process.env.CLOUDINARY_NAME;
 const BASE_URL = `https://res.cloudinary.com/${cloudName}/image/upload`;
 const TRANSF_W400 = 'c_scale,w_400';
+const TRANSF_W540 = 'c_scale,w_540';
 
 const addTransformation = (imgUrl, baseUrl, transform) => {
   const splited = imgUrl.split(baseUrl);
@@ -31,6 +32,11 @@ const getUploadResources = async (folder, limit, nextCursor) => {
             BASE_URL,
             TRANSF_W400
           );
+          const w540 = addTransformation(
+            item.secure_url,
+            BASE_URL,
+            TRANSF_W540
+          );
           return {
             original: {
               assetId: item.asset_id,
@@ -41,7 +47,8 @@ const getUploadResources = async (folder, limit, nextCursor) => {
               height: item.height
             },
             transform: {
-              w400
+              w400,
+              w540
             }
           };
         })
