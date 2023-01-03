@@ -1,2 +1,2 @@
 # image-upload-cloudinary
-Upload images with Cloudinary SDK.
+Upload & dowload images through Cloudinary SDK.
